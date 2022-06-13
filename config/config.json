@@ -1,0 +1,6 @@
+{
+  "development": {
+    "url": "postgres://vjoieteb:1YNDbr3zuh0I1N1g9QH7xGABfCKC3vP3@tyke.db.elephantsql.com/vjoieteb",
+    "dialect": "postgres"
+  }
+}
