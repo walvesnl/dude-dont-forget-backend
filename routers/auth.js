@@ -14,6 +14,12 @@ auth.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .send({ message: "Please provide your name, email and password" });
+    }
+
     const newUser = await User.create({
       name,
       email,
@@ -23,8 +29,6 @@ auth.post("/signup", async (req, res) => {
     delete newUser.dataValues["password"];
 
     const token = toJWT({ userId: newUser.id });
-
-    console.log("new user", newUser.dataValues);
 
     res.status(201).send({ token, user: newUser.dataValues });
   } catch (e) {
@@ -48,7 +52,7 @@ auth.post("/login", async (req, res, next) => {
     if (!email || !password) {
       return res
         .status(400)
-        .send({ message: "Please provide your name, email and password" });
+        .send({ message: "Please provide your email and password" });
     }
 
     const user = await User.findOne({
