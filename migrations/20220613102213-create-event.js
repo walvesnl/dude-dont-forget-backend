@@ -11,6 +11,12 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
+      start_date: {
+        type: Sequelize.DATE,
+      },
+      interval: {
+        type: Sequelize.INTERVAL,
+      },
       // details: {
       //   type: Sequelize.STRING,
       // },
@@ -19,7 +25,7 @@ module.exports = {
       // },
       // yearly: {
       //   type: Sequelize.BOOLEAN,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

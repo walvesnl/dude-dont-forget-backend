@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   event.init(
     {
       title: DataTypes.STRING,
+      start_date: DataTypes.DATE,
+      interval: DataTypes.INTERVAL,
       // details: DataTypes.STRING,
       // url: DataTypes.STRING,
       // yearly: DataTypes.BOOLEAN,
