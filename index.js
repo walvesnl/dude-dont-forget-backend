@@ -2,14 +2,18 @@ const corseMiddleware = require("cors");
 const express = require("express");
 const app = express();
 const jsonParser = express.json();
-app.use(jsonParser);
 const PORT = 4000;
-const partnersRouters = require("./routers/partners");
+const partnersRouter = require("./routers/partners");
+const authRouter = require("./routers/auth");
 
-// cors
+
+
 app.use(corseMiddleware());
+app.use(jsonParser);
 
-app.use("/partners", partnersRouters);
+
+app.use("/partners", partnersRouter);
+app.use("/auth", authRouter);
 
 app.get("/", (req, res, next) => {
   try {
