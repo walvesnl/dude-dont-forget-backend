@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   event.init(
     {
       title: DataTypes.STRING,
-      details: DataTypes.STRING,
-      url: DataTypes.STRING,
-      yearly: DataTypes.BOOLEAN,
+      // details: DataTypes.STRING,
+      // url: DataTypes.STRING,
+      // yearly: DataTypes.BOOLEAN,
     },
     {
       sequelize,
