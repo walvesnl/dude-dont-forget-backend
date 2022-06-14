@@ -1,3 +1,4 @@
+const corseMiddleware = require("cors");
 const express = require("express");
 const app = express();
 const jsonParser = express.json();
@@ -6,6 +7,7 @@ const PORT = 4000;
 const partnersRouters = require("./routers/partners");
 
 // cors
+app.use(corseMiddleware());
 
 app.use("/partners", partnersRouters);
 
