@@ -8,7 +8,7 @@ const Date = require("../models").date;
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
     const user = await User.findByPk(userId, {
       include: {
         model: Partner,

@@ -11,15 +11,21 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      details: {
-        type: Sequelize.STRING,
+      start_date: {
+        type: Sequelize.DATE,
       },
-      url: {
-        type: Sequelize.STRING,
+      interval: {
+        type: Sequelize.INTERVAL,
       },
-      yearly: {
-        type: Sequelize.BOOLEAN,
-      },
+      // details: {
+      //   type: Sequelize.STRING,
+      // },
+      // url: {
+      //   type: Sequelize.STRING,
+      // },
+      // yearly: {
+      //   type: Sequelize.BOOLEAN,
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
