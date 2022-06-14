@@ -11,14 +11,14 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      details: {
-        type: Sequelize.STRING,
-      },
-      url: {
-        type: Sequelize.STRING,
-      },
-      yearly: {
-        type: Sequelize.BOOLEAN,
+      // details: {
+      //   type: Sequelize.STRING,
+      // },
+      // url: {
+      //   type: Sequelize.STRING,
+      // },
+      // yearly: {
+      //   type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
