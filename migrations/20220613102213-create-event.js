@@ -11,21 +11,12 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      start_date: {
-        type: Sequelize.DATE,
+      startDate: {
+        type: Sequelize.DATEONLY,
       },
       interval: {
-        type: Sequelize.INTERVAL,
+        type: Sequelize.STRING,
       },
-      // details: {
-      //   type: Sequelize.STRING,
-      // },
-      // url: {
-      //   type: Sequelize.STRING,
-      // },
-      // yearly: {
-      //   type: Sequelize.BOOLEAN,
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
