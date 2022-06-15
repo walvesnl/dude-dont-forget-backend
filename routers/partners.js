@@ -38,4 +38,19 @@ router.post("/addNew", async (req, res, next) => {
   }
 });
 
+router.delete("/delete", async (req, res, next) => {
+  try {
+    const { partnerId } = req.body;
+
+    const addPartner = await Partner.findByPk(partnerId);
+
+    addPartner.destroy();
+
+    res.send("Partner deleted");
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;

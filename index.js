@@ -6,7 +6,8 @@ const nodemailer = require("nodemailer");
 const PORT = 4000;
 const partnersRouter = require("./routers/partners");
 const authRouter = require("./routers/auth");
-
+const eventsRouter = require("./routers/events");
+const factsRouter = require("./routers/facts");
 require("dotenv").config();
 
 app.use(corseMiddleware());
@@ -14,6 +15,8 @@ app.use(jsonParser);
 
 app.use("/partners", partnersRouter);
 app.use("/auth", authRouter);
+app.use("/events", eventsRouter);
+app.use("/facts", factsRouter);
 
 app.get("/", (req, res, next) => {
   try {
