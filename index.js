@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const PORT = 4000;
 const partnersRouter = require("./routers/partners");
 const authRouter = require("./routers/auth");
+
 require("dotenv").config();
 
 app.use(corseMiddleware());
@@ -61,6 +62,7 @@ app.post("/email", (req, res) => {
     }
   });
 });
+//
 
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT}`);
