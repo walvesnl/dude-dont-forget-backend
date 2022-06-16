@@ -27,13 +27,9 @@ auth.post("/signup", async (req, res) => {
     });
 
     if (newUser) {
-      const user = User.findOne({
-        where: { email },
-      });
-
-      const newPartner = Partner.create({
+      const newPartner = await Partner.create({
         name: nameFriend,
-        user_id: user.id,
+        user_id: newUser.dataValues.id,
       });
     }
 
