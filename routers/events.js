@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const router = new Router();
 const Event = require("../models").event;
+const Partners = require("../models").partner;
+const authMiddleware = require("../auth/middleware");
 
-router.post("/addNew", async (req, res, next) => {
+router.post("/addNew", authMiddleware, async (req, res, next) => {
   try {
     const { title, startDate, interval, partnerId } = req.body;
 
@@ -13,22 +15,39 @@ router.post("/addNew", async (req, res, next) => {
       partner_id: partnerId,
     });
 
-    res.send(addEvent);
+    const user = req.user;
+
+    const partners = await Partners.findAll({
+      where: { user_id: user.id },
+      include: { model: Event },
+    });
+
+    console.log(partners);
+
+    res.send(partners);
   } catch (e) {
     console.log(e);
     next(e);
   }
 });
 
-router.delete("/delete", async (req, res, next) => {
+router.delete("/delete/:id", authMiddleware, async (req, res, next) => {
   try {
-    const { eventId } = req.body;
+    const eventId = req.params.id;
+    console.log("ID", eventId);
 
-    const addEvent = await Event.findByPk(eventId);
+    const addEvent = await Event.findByPk(parseInt(eventId));
 
     addEvent.destroy();
 
-    res.send({ message: "Event deleted", addEvent });
+    const user = req.user;
+
+    const partners = await Partners.findAll({
+      where: { user_id: user.id },
+      include: { model: Event },
+    });
+
+    res.send({ message: "Event deleted", addEvent, partners });
   } catch (e) {
     console.log(e);
     next(e);
