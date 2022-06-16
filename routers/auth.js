@@ -12,7 +12,7 @@ const { toJWT } = require("../auth/jwt");
 
 auth.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, nameFriend } = req.body;
 
     if (!name || !email || !password) {
       return res
@@ -25,6 +25,17 @@ auth.post("/signup", async (req, res) => {
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
     });
+
+    if (newUser) {
+      const user = User.findOne({
+        where: { email },
+      });
+
+      const newPartner = Partner.create({
+        name: nameFriend,
+        user_id: user.id,
+      });
+    }
 
     delete newUser.dataValues["password"];
 
