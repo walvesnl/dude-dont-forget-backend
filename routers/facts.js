@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const router = new Router();
 const Fact = require("../models").fact;
+const Event = require("../models").event;
+const Partners = require("../models").partner;
+const authMiddleware = require("../auth/middleware");
 
 router.post("/addNew", async (req, res, next) => {
   try {
@@ -12,23 +15,35 @@ router.post("/addNew", async (req, res, next) => {
       partner_id: partnerId,
       user_id: userId,
     });
+    // console.log(addFact);
+    const partners = await Partners.findAll({
+      where: { user_id: userId },
+      include: [{ model: Event }, { model: Fact }],
+    });
 
-    res.send(addFact);
+    res.send(partners);
   } catch (e) {
     console.log(e);
     next(e);
   }
 });
 
-router.delete("/delete", async (req, res, next) => {
+router.delete("/delete/:id", authMiddleware, async (req, res, next) => {
   try {
-    const { factId } = req.body;
+    const factID = req.params.id;
 
-    const addFact = await Fact.findByPk(factId);
+    const findFact = await Fact.findByPk(factID);
 
-    addFact.destroy();
+    findFact.destroy();
 
-    res.send({ message: "Fact deleted", addFact });
+    const user = req.user;
+    // res.send({ message: "Fact deleted", addFact });
+    const partners = await Partners.findAll({
+      where: { user_id: user.id },
+      include: [{ model: Event }, { model: Fact }],
+    });
+
+    res.send({ message: "Fact deleted", findFact, partners });
   } catch (e) {
     console.log(e);
     next(e);

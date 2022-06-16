@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = new Router();
 const Event = require("../models").event;
 const Partners = require("../models").partner;
+const Fact = require("../models").fact;
 const authMiddleware = require("../auth/middleware");
 
 router.post("/addNew", authMiddleware, async (req, res, next) => {
@@ -19,7 +20,7 @@ router.post("/addNew", authMiddleware, async (req, res, next) => {
 
     const partners = await Partners.findAll({
       where: { user_id: user.id },
-      include: { model: Event },
+      include: [{ model: Event }, { model: Fact }],
     });
 
     console.log(partners);
@@ -44,7 +45,7 @@ router.delete("/delete/:id", authMiddleware, async (req, res, next) => {
 
     const partners = await Partners.findAll({
       where: { user_id: user.id },
-      include: { model: Event },
+      include: [{ model: Event }, { model: Fact }],
     });
 
     res.send({ message: "Event deleted", addEvent, partners });
