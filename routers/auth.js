@@ -33,11 +33,19 @@ auth.post("/signup", async (req, res) => {
       });
     }
 
-    delete newUser.dataValues["password"];
+    const userWithPartner = await User.findOne({
+      where: { email },
+      include: {
+        model: Partner,
+        include: [{ model: Event, include: { model: Date } }, { model: Fact }],
+      },
+    });
+
+    delete userWithPartner.dataValues["password"];
 
     const token = toJWT({ userId: newUser.id });
 
-    res.status(201).send({ token, user: newUser.dataValues });
+    res.status(201).send({ token, user: userWithPartner.dataValues });
   } catch (e) {
     console.log(e.message);
     if (e.name === "SequelizeUniqueConstraintError") {
